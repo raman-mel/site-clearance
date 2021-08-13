@@ -22,11 +22,15 @@ public class FileProcessor {
     }
 
     private SiteMap fileToSiteMap(final String filePath) {
-        return new SiteMap(processFileInput(filePath)
+        final Block[][] blocks = processFileInput(filePath)
                 .map(s-> s.replaceAll(" ", ""))
                 .map( s -> s.split(""))
                 .map(arr -> toBlockArray(arr))
-                .toArray(Block[][]::new));
+                .toArray(Block[][]::new);
+        if (!isAValidSite(blocks)) {
+            throw new ValidationException("Input file is not valid");
+        }
+        return new SiteMap(blocks);
     }
 
     private Stream<String> processFileInput(final String filePath) {
@@ -51,5 +55,15 @@ public class FileProcessor {
             }
         }
         throw new ValidationException(format("Invalid block type [%s] found in source file", type));
+    }
+
+    private boolean isAValidSite(Block[][] blocks) {
+        int length = blocks[0].length;
+        for (int i=1; i<blocks.length; i++) {
+            if (blocks[i].length != length) {
+                return false;
+            }
+        }
+        return true;
     }
 }

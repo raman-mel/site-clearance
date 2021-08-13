@@ -37,7 +37,13 @@ public class SiteSimulatorServiceImpl implements SiteSimulatorService {
 
     @Override
     public void startSimulation(final String filePath) {
-        final Site site = fileProcessor.prepareSite(filePath);
+        Site site = null;
+        try {
+            site = fileProcessor.prepareSite(filePath);
+        } catch (ValidationException ex) {
+            System.out.println(ex.getMessage());
+            System.exit(1);
+        }
         System.out.println("Welcome to the Aconex site clearing simulator. This is a map of the site:\n");
         siteService.displaySiteMap(site);
         System.out.println("\nThe bulldozer is currently located at the Northern edge of the "

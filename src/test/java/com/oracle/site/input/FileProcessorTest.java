@@ -37,6 +37,11 @@ public class FileProcessorTest {
     }
 
     @Test
+    public void itShouldThrowValidationExceptionIfSiteIsNotSquare() {
+        assertThrows(ValidationException.class, () -> fileProcessor.prepareSite("src/test/resources/siteMapNotSquare.txt"));
+    }
+
+    @Test
     public void itShouldThrowValidationExceptionForInvalidFile() {
         assertThrows(FileNotFoundException.class, () -> fileProcessor.prepareSite("src/test/resources/something.txt"));
     }
