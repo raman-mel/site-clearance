@@ -74,6 +74,34 @@
                 </plugin>
 
                 <plugin>
+                    <groupId>com.github.spotbugs</groupId>
+                    <artifactId>spotbugs-maven-plugin</artifactId>
+                    <version>4.0.4</version>
+                    <configuration>
+                        <effort>Max</effort>
+                        <threshold>Low</threshold>
+                        <failOnError>true</failOnError>
+                        <includeFilterFile>${project.basedir}/src/main/resources//spotbugs-security-include.xml</includeFilterFile>
+                        <excludeFilterFile>${project.basedir}/src/main/resources//spotbugs-security-exclude.xml</excludeFilterFile>
+                        <plugins>
+                            <plugin>
+                                <groupId>com.h3xstream.findsecbugs</groupId>
+                                <artifactId>findsecbugs-plugin</artifactId>
+                                <version>1.10.1</version>
+                            </plugin>
+                        </plugins>
+                    </configuration>
+                    <executions>
+                        <execution>
+                            <phase>compile</phase>
+                            <goals>
+                                <goal>check</goal>
+                            </goals>
+                        </execution>
+                    </executions>
+                </plugin>
+
+                <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-assembly-plugin</artifactId>
                     <version>3.0.0</version>
@@ -95,28 +123,6 @@
                             <phase>package</phase>
                             <goals>
                                 <goal>single</goal>
-                            </goals>
-                        </execution>
-                    </executions>
-                </plugin>
-
-                <plugin>
-                    <groupId>org.codehaus.mojo</groupId>
-                    <artifactId>findbugs-maven-plugin</artifactId>
-                    <version>3.0.0</version>
-                    <configuration>
-                        <effort>Max</effort>
-                        <threshold>Low</threshold>
-                        <xmlOutput>true</xmlOutput>
-                        <findbugsXmlOutputDirectory>${project.build.directory}/findbugs</findbugsXmlOutputDirectory>
-                        <includeFilterFile>${project.basedir}/src/main/resources/findbugs.xml</includeFilterFile>
-                        <includeTests>false</includeTests>
-                    </configuration>
-                    <executions>
-                        <execution>
-                            <phase>compile</phase>
-                            <goals>
-                                <goal>check</goal>
                             </goals>
                         </execution>
                     </executions>

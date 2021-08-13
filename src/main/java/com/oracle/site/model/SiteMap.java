@@ -2,7 +2,7 @@ package com.oracle.site.model;
 
 public class SiteMap {
 
-    private Block[][] blocks;
+    private final Block[][] blocks;
 
     public SiteMap(final Block[][] blocks) {
         this.blocks = blocks;
