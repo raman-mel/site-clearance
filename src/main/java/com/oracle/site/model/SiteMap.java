@@ -8,6 +8,10 @@ public class SiteMap {
         this.blocks = blocks;
     }
 
+    public Block[][] getBlocks() {
+        return blocks;
+    }
+
     public void printSiteMap() {
         for (Block[] rows : blocks) {
             for (Block block : rows) {

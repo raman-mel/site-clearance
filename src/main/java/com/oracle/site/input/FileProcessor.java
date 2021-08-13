@@ -6,6 +6,7 @@ import com.oracle.site.exception.FileNotFoundException;
 import com.oracle.site.exception.ValidationException;
 import com.oracle.site.model.Block;
 import com.oracle.site.model.BlockType;
+import com.oracle.site.model.Site;
 import com.oracle.site.model.SiteMap;
 
 import java.io.IOException;
@@ -16,15 +17,11 @@ import java.util.stream.Stream;
 
 public class FileProcessor {
 
-    private Stream<String> processFileInput(String filePath) {
-        try {
-            return Files.lines(Paths.get(filePath));
-        } catch (IOException ex) {
-           throw new FileNotFoundException(format("Source file [%s] not found", filePath));
-        }
+    public Site prepareSite(final String filePath) {
+        return new Site(fileToSiteMap(filePath));
     }
 
-    public SiteMap fileToSiteMap(String filePath) {
+    private SiteMap fileToSiteMap(final String filePath) {
         return new SiteMap(processFileInput(filePath)
                 .map(s-> s.replaceAll(" ", ""))
                 .map( s -> s.split(""))
@@ -32,14 +29,22 @@ public class FileProcessor {
                 .toArray(Block[][]::new));
     }
 
-    private Block[] toBlockArray(String[] input) {
+    private Stream<String> processFileInput(final String filePath) {
+        try {
+            return Files.lines(Paths.get(filePath));
+        } catch (IOException ex) {
+           throw new FileNotFoundException(format("Source file [%s] not found", filePath));
+        }
+    }
+
+    private Block[] toBlockArray(final String[] input) {
         return  Arrays.asList(input)
                 .stream()
                 .map(c -> new Block(getBlockType(c)))
                 .toArray(Block[]::new);
     }
 
-    private BlockType getBlockType(String type) {
+    private BlockType getBlockType(final String type) {
         for(BlockType blockType: BlockType.values()) {
             if(blockType.getType().equals(type)) {
                 return blockType;
@@ -47,5 +52,4 @@ public class FileProcessor {
         }
         throw new ValidationException(format("Invalid block type [%s] found in source file", type));
     }
-
 }
