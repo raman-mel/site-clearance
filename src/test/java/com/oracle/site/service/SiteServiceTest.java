@@ -10,6 +10,7 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
+import com.ginsberg.junit.exit.ExpectSystemExitWithStatus;
 import com.oracle.site.command.Command;
 import com.oracle.site.exception.ValidationException;
 import com.oracle.site.model.Block;
@@ -27,6 +28,7 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import java.util.LinkedList;
 import java.util.Queue;
 
 @ExtendWith(MockitoExtension.class)
@@ -185,6 +187,28 @@ public class SiteServiceTest {
         when(siteMap.getBlocks()).thenReturn(blocks);
         siteService.updateCostWithUnvisitedBlocksCount(site);
         verify(itemisedCost).setUnclearedBlocksQty(21);
+    }
+
+    @Test
+    @ExpectSystemExitWithStatus(0)
+    public void test_stopSimulation() {
+        Block[][] blocks = new Block[5][5];
+        for (int i = 0; i < 5; i++) {
+            for (int j = 0; j < 5; j++) {
+                blocks[i][j] = new Block(BlockType.ROCKY);
+            }
+        }
+
+        blocks[0][2].setVisited(true);
+        blocks[2][2].setVisited(true);
+        blocks[3][2] = new Block(BlockType.PRESERVED_TREES);
+        blocks[4][3] = new Block(BlockType.PRESERVED_TREES);
+
+        when(site.getItemisedCost()).thenReturn(itemisedCost);
+        when(site.getSiteMap()).thenReturn(siteMap);
+        when(site.getCommands()).thenReturn(new LinkedList<>());
+        when(siteMap.getBlocks()).thenReturn(blocks);
+        siteService.stopSimulation(site);
     }
 
     @Test
