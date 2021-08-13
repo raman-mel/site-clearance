@@ -95,6 +95,7 @@ public class SiteServiceImpl implements SiteService {
         updateCostWithUnvisitedBlocksCount(site);
         displayItemisedCost(site);
         System.out.println("Thank you for using the Aconex site clearing simulator.");
+        System.exit(0);
     }
 
     boolean isValidLocation(final Site site, final int[] location) {

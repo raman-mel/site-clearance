@@ -60,13 +60,13 @@ public class CostServiceImpl implements CostService {
     @Override
     public void displayItemisedCost(final ItemisedCost cost) {
         System.out.println("The costs for this land clearing operation were:");
-        System.out.println("\nItem\t\t\t\t\t\t\t\tQuantity\t\tCost");
-        System.out.println("communication overhead\t\t\t\t\t" + cost.getCommunicationQty() + "\t\t\t" + getCommunicationOverheadCost(cost));
-        System.out.println("fuel usage\t\t\t\t\t\t\t\t" + cost.getFuelQty() + "\t\t\t" + getFuelCost(cost));
-        System.out.println("uncleared squares\t\t\t\t\t\t" + cost.getUnclearedBlocksQty() + "\t\t\t" + getUnclearedSiteCost(cost));
+        System.out.println("\nItem                       \t\t\tQuantity\t\tCost");
+        System.out.println("communication overhead       \t\t\t" + cost.getCommunicationQty() + "\t\t\t" + getCommunicationOverheadCost(cost));
+        System.out.println("fuel usage                   \t\t\t" + cost.getFuelQty() + "\t\t\t" + getFuelCost(cost));
+        System.out.println("uncleared squares            \t\t\t" + cost.getUnclearedBlocksQty() + "\t\t\t" + getUnclearedSiteCost(cost));
         System.out.println("destruction of protected tree\t\t\t" + cost.getProtectedTreeDamageQty() + "\t\t\t" + getProtectedTreeDamageCost(cost));
-        System.out.println("paint damage to bulldozer\t\t\t\t" + cost.getBulldozerDamageQty() + "\t\t\t" + getBulldozerPaintDamageCost(cost));
+        System.out.println("paint damage to bulldozer    \t\t\t" + cost.getBulldozerDamageQty() + "\t\t\t" + getBulldozerPaintDamageCost(cost));
         System.out.println("----");
-        System.out.println("Total\t\t\t\t\t\t\t\t\t\t\t\t" + getTotalCost(cost));
+        System.out.println("Total                        \t\t\t\t\t\t" + getTotalCost(cost));
     }
 }
