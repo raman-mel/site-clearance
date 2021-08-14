@@ -177,7 +177,6 @@
                     <configuration>
                         <excludes>
                             <exclude>com/oracle/site/model/**/*</exclude>
-                            <exclude>**/*Application.class</exclude>
                         </excludes>
                     </configuration>
 
