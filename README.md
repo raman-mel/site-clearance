@@ -34,5 +34,8 @@ e.g.
 
 `docker run -it -v /Users/rsingh/projects/resources/:/tmp site-clearance-simulator:latest /tmp/siteMap.txt`
 
+## Sample Test files
+Some sample site map files can be found [here](src/test/resources)
+
 ## Author
 Ramanjit Singh
