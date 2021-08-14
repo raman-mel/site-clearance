@@ -1,12 +1,12 @@
 package com.oracle.site.service;
 
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.verifyZeroInteractions;
 import static org.mockito.Mockito.when;
 
-import com.ginsberg.junit.exit.ExpectSystemExitWithStatus;
 import com.oracle.site.command.Command;
 import com.oracle.site.exception.ValidationException;
 import com.oracle.site.input.FileProcessor;
@@ -72,10 +72,9 @@ public class SiteSimulatorServiceTest {
     }
 
     @Test
-    @ExpectSystemExitWithStatus(1)
     public void testStartSimulation_invalidFile() {
         when(fileProcessor.prepareSite(FILE_PATH)).thenThrow(ValidationException.class);
-        siteSimulatorService.startSimulation(FILE_PATH);
+        assertThrows(ValidationException.class, () -> siteSimulatorService.startSimulation(FILE_PATH));
         verifyZeroInteractions(siteService);
     }
 

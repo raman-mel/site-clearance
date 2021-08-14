@@ -1,5 +1,6 @@
 package com.oracle.site;
 
+import com.oracle.site.exception.ValidationException;
 import com.oracle.site.service.SiteSimulatorServiceImpl;
 
 public class Application {
@@ -10,7 +11,11 @@ public class Application {
             System.exit(1);
         }
 
-        new SiteSimulatorServiceImpl().startSimulation(args[0]);
+        try {
+            new SiteSimulatorServiceImpl().startSimulation(args[0]);
+        } catch (ValidationException ex) {
+            System.out.println("Program exiting due to error\n" + ex.getMessage());
+        }
     }
 
 }

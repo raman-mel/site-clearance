@@ -3,7 +3,6 @@ package com.oracle.site.command;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.verify;
 
-import com.ginsberg.junit.exit.ExpectSystemExitWithStatus;
 import com.oracle.site.model.Site;
 import com.oracle.site.service.SiteService;
 import org.junit.jupiter.api.BeforeEach;
@@ -29,7 +28,6 @@ public class QuitCommandTest {
     }
 
     @Test
-    @ExpectSystemExitWithStatus(0)
     public void itShouldExecute() {
         command.execute(site);
         verify(siteService).stopSimulation(site);

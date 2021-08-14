@@ -14,7 +14,6 @@ public class QuitCommand implements Command {
     @Override
     public void execute(final Site site) {
         siteService.stopSimulation(site);
-        System.exit(0);
     }
 
     @Override
